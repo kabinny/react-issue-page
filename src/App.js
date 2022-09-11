@@ -9,6 +9,10 @@ import "./App.css"
  *
  */
 
+// hook 사용 규칙
+// 1. 최상위에서 호출되어야 한다.
+// 2. 오직 React 함수에서만 hook을 호출해야 한다.
+
 function App() {
   const [count, setCount] = useState(0)
 
