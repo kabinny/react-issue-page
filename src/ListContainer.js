@@ -1,4 +1,5 @@
 import { useState } from "react"
+import cx from "clsx"
 import styles from "./ListContainer.module.css"
 import Button from "./components/Button"
 import ListItem from "./components/ListItem"
@@ -22,6 +23,7 @@ export default function ListContainer() {
           New Issue
         </Button>
       </div>
+      <OpenCloseFilters />
       <ListItemLayout className={styles.listFilter}>
         <div className={styles.filterLists}>
           <span>Author</span>
@@ -51,5 +53,43 @@ export default function ListContainer() {
         />
       </div>
     </div>
+  )
+}
+
+function OpenCloseFilters({ data }) {
+  const [isOpenMode, setIsOpenMode] = useState(true)
+
+  // const data = getData()
+  // const openData = data.filter((d) => d.state ==='open')
+  const openModeDataSize = 1
+  const closedModeDataSize = 2
+
+  return (
+    <>
+      <OpenCloseFilter
+        size={openModeDataSize}
+        state="Open"
+        selected={isOpenMode}
+        onClick={() => setIsOpenMode(true)}
+      />
+      <OpenCloseFilter
+        size={closedModeDataSize}
+        state="Closed"
+        selected={!isOpenMode}
+        onClick={() => setIsOpenMode(false)}
+      />
+    </>
+  )
+}
+
+function OpenCloseFilter({ size, state, onClick, selected }) {
+  return (
+    <span
+      role="button"
+      className={cx(styles.textFilter, { [styles.selected]: selected })}
+      onClick={onClick}
+    >
+      {size} {state}
+    </span>
   )
 }
