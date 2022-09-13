@@ -5,10 +5,11 @@
   font-size: 14px;
   padding: 5px 10px;
   border-radius: 6px;
+  border: 1px solid transparent;
 }
 
 .button:hover {
-  border: 1px solid #d0d7de;
+  border-color: #d0d7de;
 }
 
 .selected {
@@ -25,5 +26,5 @@
 }
 
 .blueButton:disabled:hover {
-  border: none;
+  border-color: transparent;
 }
