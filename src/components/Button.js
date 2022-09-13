@@ -1,8 +1,9 @@
 import styles from "./Button.module.css"
+import cx from "clsx"
 
-export default function Button({ style, children }) {
+export default function Button({ buttonStyle, children }) {
   return (
-    <button className={styles.button} style={style}>
+    <button className={cx(styles.button, styles[buttonStyle])}>
       {children}
     </button>
   )

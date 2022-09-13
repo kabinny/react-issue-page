@@ -21,15 +21,7 @@ export default function ListContainer() {
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
           />
-          <Button
-            style={{
-              fontSize: "14px",
-              backgroundColor: "green",
-              color: "white",
-            }}
-          >
-            New Issue
-          </Button>
+          <Button buttonStyle="green">New Issue</Button>
         </div>
         <OpenCloseFilters />
         <ListItemLayout className={styles.listFilter}>
