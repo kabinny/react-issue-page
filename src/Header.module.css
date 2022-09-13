@@ -8,6 +8,7 @@
   display: flex;
   margin-bottom: 20px;
   justify-content: flex-end;
+  align-items: center;
 }
 
 .circle {
@@ -20,4 +21,27 @@
   align-items: center;
   margin-left: 3px;
   font-size: 12px;
+}
+
+.repoNameContainer {
+  margin-right: auto;
+}
+
+.repoNameContainer > * {
+  color: rgb(9, 105, 218)
+}
+
+.userName {
+  font-size: 20px;
+  text-decoration: none;
+}
+
+.divider {
+  margin: 0 4px;
+}
+
+.repoName {
+  font-size: 20px;
+  font-weight: 600;
+  text-decoration: none;
 }
