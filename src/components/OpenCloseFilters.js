@@ -1,28 +1,23 @@
 import styles from "./OpenCloseFilters.module.css"
-import { useState } from "react"
 import cx from "clsx"
 
-export default function OpenCloseFilters({ data }) {
-  const [isOpenMode, setIsOpenMode] = useState(true)
-
-  // const data = getData()
-  // const openData = data.filter((d) => d.state ==='open')
-  const openModeDataSize = 1
-  const closeModeDataSize = 2
+export default function OpenCloseFilters({ isOpenMode, onClickMode }) {
+  // const openModeDataSize = 1
+  // const closeModeDataSize = 2
 
   return (
     <>
       <OpenCloseFilter
-        size={openModeDataSize}
+        // size={openModeDataSize}
         state="Open"
         selected={isOpenMode}
-        onClick={() => setIsOpenMode(true)}
+        onClick={() => onClickMode(true)}
       />
       <OpenCloseFilter
-        size={closeModeDataSize}
+        // size={closeModeDataSize}
         state="Closed"
         selected={!isOpenMode}
-        onClick={() => setIsOpenMode(false)}
+        onClick={() => onClickMode(false)}
       />
     </>
   )
@@ -35,7 +30,7 @@ function OpenCloseFilter({ size, state, onClick, selected }) {
       className={cx(styles.textFilter, { [styles.selected]: selected })}
       onClick={onClick}
     >
-      {size} {state}
+      {/* {size} */} {state}
     </span>
   )
 }
