@@ -7,8 +7,7 @@ import ListItemLayout from "./components/ListItemLayout"
 import Pagination from "./components/Pagination"
 import ListFilter from "./components/ListFilter"
 import OpenCloseFilters from "./components/OpenCloseFilters"
-
-const GITHUB_API = "https://api.github.com"
+import { GITHUB_API } from "./api"
 
 export default function ListContainer() {
   const [inputValue, setInputValue] = useState("is:pr is:open")
@@ -16,6 +15,7 @@ export default function ListContainer() {
   const [list, setList] = useState([])
   const [page, setPage] = useState(1)
   const [isOpenMode, setIsOpenMode] = useState(true)
+  const [params, setParams] = useState()
 
   async function getData(params) {
     const { data } = await axios.get(
@@ -28,8 +28,8 @@ export default function ListContainer() {
   // API 로 데이터로 받아오는 작업은 useEffect 안에 넣어야 한다.
   // 그리고 화면을 그리는 컴포넌트에 위치하면 된다.
   useEffect(() => {
-    getData({ page, state: isOpenMode ? "open" : "closed" })
-  }, [page, isOpenMode])
+    getData({ page, state: isOpenMode ? "open" : "closed", ...params })
+  }, [page, isOpenMode, params])
 
   return (
     <>
@@ -45,10 +45,11 @@ export default function ListContainer() {
         <OpenCloseFilters isOpenMode={isOpenMode} onClickMode={setIsOpenMode} />
         <ListItemLayout className={styles.listFilter}>
           <ListFilter
-            onChangeFilter={(filteredData) => {
+            onChangeFilter={(params) => {
               // 필터링된 요소에 맞게 데이터르 불러오기
               // const data = getData('필터링된 정보')
               // setList(data)
+              setParams(params)
             }}
           />
         </ListItemLayout>
