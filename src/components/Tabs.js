@@ -1,28 +1,31 @@
 import { useState } from "react"
+import { useLocation, Link } from "react-router-dom"
 import styles from "./Tabs.module.css"
 import cx from "clsx"
 
 const TabList = [
-  "Code",
-  "Issues",
-  "Pull requests",
-  "Actions",
-  "Projects",
-  "Security",
-  "Insights",
-  "Settings",
+  { name: "Code", pathname: "/code" },
+  { name: "Issues", pathname: "/issue" },
+  { name: "Pull requests", pathname: "/pulls" },
+  { name: "Actions", pathname: "/actions" },
+  { name: "Projects", pathname: "/projects" },
+  { name: "Security", pathname: "/security" },
+  // { name: "Insights", pathname: "/insights" },
+  // { name: "Settings", pathname: "/settings" },
 ]
 
 export default function Tabs() {
   const [selectedTabIndex, setSelectedTabIndex] = useState(0)
+
+  const { pathname } = useLocation()
 
   return (
     <ul className={styles.tabList}>
       {TabList.map((tab, index) => (
         <Tab
           key={`${index}`}
-          title={tab}
-          selected={selectedTabIndex === index}
+          item={tab}
+          selected={pathname === tab.pathname}
           onClick={() => setSelectedTabIndex(index)}
         />
       ))}
@@ -30,16 +33,18 @@ export default function Tabs() {
   )
 }
 
-function Tab({ title, selected, onClick, number }) {
+function Tab({ item, selected, onClick, number }) {
   return (
     <li>
-      <button
-        onClick={onClick}
-        className={cx(styles.tab, { [styles.selected]: selected })}
-      >
-        <span>{title}</span>
-        {number && <div className={styles.circle}>{number}</div>}
-      </button>
+      <Link to={item.pathname} className={styles.link}>
+        <button
+          onClick={onClick}
+          className={cx(styles.tab, { [styles.selected]: selected })}
+        >
+          <span>{item.name}</span>
+          {number && <div className={styles.circle}>{number}</div>}
+        </button>
+      </Link>
     </li>
   )
 }
