@@ -4,7 +4,7 @@ import Nav from "./components/Nav"
 import Header from "./Header"
 
 import Issue from "./pages/Issue"
-import CreateIssue from "./pages/CreateIssu"
+import CreateIssue from "./pages/CreateIssue"
 import Projects from "./pages/Projects"
 import PullRequest from "./pages/PullRequest"
 import Code from "./pages/Code"

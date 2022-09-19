@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { useSearchParams } from "react-router-dom"
+import { useSearchParams, Link } from "react-router-dom"
 import axios from "axios"
 import styles from "./ListContainer.module.css"
 import Button from "./components/Button"
@@ -43,7 +43,9 @@ export default function ListContainer() {
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
           />
-          <Button buttonStyle="green">New Issue</Button>
+          <Link to="/new" className={styles.link}>
+            <Button buttonStyle="green">New Issue</Button>
+          </Link>
         </div>
         <OpenCloseFilters
           isOpenMode={state !== "closed"}
