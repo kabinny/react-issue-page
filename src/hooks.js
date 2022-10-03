@@ -17,7 +17,7 @@ export function useForm({
     setInputValues({ ...inputValues, [name]: value })
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault()
 
     setIsSubmitting(true)
@@ -38,7 +38,7 @@ export function useForm({
     }
 
     if (errorKeys.length === 0) {
-      onSubmit()
+      await onSubmit()
       return
     }
   }

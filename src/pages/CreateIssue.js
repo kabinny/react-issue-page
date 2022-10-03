@@ -4,6 +4,8 @@ import cx from "clsx"
 import Button from "../components/Button"
 import TextField from "../components/TextField"
 import { useForm } from "../hooks"
+import axios from "axios"
+import { GITHUB_API } from "../api"
 
 export default function CreateIssue() {
   const inputRef = useRef()
@@ -11,7 +13,17 @@ export default function CreateIssue() {
   const { isSubmitting, inputValues, onChange, errors, handleSubmit } = useForm(
     {
       initialValues: { title: "", body: "" },
-      onSubmit: () => console.log("완료"),
+      onSubmit: async () =>
+        await axios.post(
+          `${GITHUB_API}/repos/kabinny/react-issue-page/issues`,
+          inputValues,
+          {
+            headers: {
+              Authorization: process.env.REACT_APP_GITHUB_TOKEN,
+              "Content-Type": "application/json",
+            },
+          },
+        ),
       validate,
       refs: { title: inputRef, body: textareaRef },
     },
