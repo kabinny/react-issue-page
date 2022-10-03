@@ -1,4 +1,5 @@
 import { useRef } from "react"
+import { useNavigate } from "react-router-dom"
 import styles from "./CreateIssue.module.css"
 import cx from "clsx"
 import Button from "../components/Button"
@@ -10,6 +11,7 @@ import { GITHUB_API } from "../api"
 export default function CreateIssue() {
   const inputRef = useRef()
   const textareaRef = useRef()
+  const navigate = useNavigate()
   const { isSubmitting, inputValues, onChange, errors, handleSubmit } = useForm(
     {
       initialValues: { title: "", body: "" },
@@ -26,6 +28,11 @@ export default function CreateIssue() {
         ),
       validate,
       refs: { title: inputRef, body: textareaRef },
+      onErrors: () => console.log("error"),
+      onSuccess: (result) => {
+        console.log(result)
+        navigate("/", { replace: true })
+      },
     },
   )
 
