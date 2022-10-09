@@ -1,4 +1,7 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import axios from "axios"
+
+import { GITHUB_API } from "./api"
 
 export function useForm({
   initialValues,
@@ -56,4 +59,25 @@ export function useForm({
     errors,
     handleSubmit,
   }
+}
+
+export function useUser() {
+  const [user, setUser] = useState()
+
+  useEffect(() => {
+    getUserInfo()
+  }, [])
+
+  async function getUserInfo() {
+    const data = await axios.get(`${GITHUB_API}/user`, {
+      headers: {
+        Authorization: process.env.REACT_APP_GITHUB_TOKEN,
+        "Content-Type": "application/json",
+      },
+    })
+
+    setUser(data.data)
+  }
+
+  return user
 }

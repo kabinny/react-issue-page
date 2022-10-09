@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react"
 import { Route, Routes } from "react-router-dom"
 
 import Nav from "./components/Nav"
@@ -11,30 +10,17 @@ import PullRequest from "./pages/PullRequest"
 import Code from "./pages/Code"
 import Security from "./pages/Security"
 import Actions from "./pages/Actions"
-import axios from "axios"
-import { GITHUB_API } from "./api"
-import { UserContext } from "./context/UserContext"
+
+/**
+ * ContextAPI - 전역적인 정보를 prop drilling 없이 사용할 때
+ * -> 굳이 사용하지 않아도 된다면,
+ * hooks로 빼내어 사용한다.
+ * -> hooks로 선언한 부분이 반복적으로 네트워크 콜을 유발한다면, cache를 통해서 개선헤볼 수 있을 것.
+ */
 
 function App() {
-  const [user, setUser] = useState()
-
-  useEffect(() => {
-    getUserInfo()
-  }, [])
-
-  async function getUserInfo() {
-    const data = await axios.get(`${GITHUB_API}/user`, {
-      headers: {
-        Authorization: process.env.REACT_APP_GITHUB_TOKEN,
-        "Content-Type": "application/json",
-      },
-    })
-
-    setUser(data.data)
-  }
-
   return (
-    <UserContext.Provider value={{ user }}>
+    <>
       <Nav />
       <Header />
       <Routes>
@@ -47,7 +33,7 @@ function App() {
         <Route path="/security" element={<Security />} />
         <Route path="/actions" element={<Actions />} />
       </Routes>
-    </UserContext.Provider>
+    </>
   )
 }
 
