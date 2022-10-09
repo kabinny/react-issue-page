@@ -1,4 +1,4 @@
-import { useRef } from "react"
+import { useContext, useRef } from "react"
 import { useNavigate } from "react-router-dom"
 import styles from "./CreateIssue.module.css"
 import cx from "clsx"
@@ -7,11 +7,15 @@ import TextField from "../components/TextField"
 import { useForm } from "../hooks"
 import axios from "axios"
 import { GITHUB_API } from "../api"
+import { UserContext } from "../context/UserContext"
 
 export default function CreateIssue() {
   const inputRef = useRef()
   const textareaRef = useRef()
   const navigate = useNavigate()
+  const data = useContext(UserContext)
+
+  console.log({ data })
   const { isSubmitting, inputValues, onChange, errors, handleSubmit } = useForm(
     {
       initialValues: { title: "", body: "" },
