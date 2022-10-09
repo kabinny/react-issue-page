@@ -10,6 +10,7 @@ import PullRequest from "./pages/PullRequest"
 import Code from "./pages/Code"
 import Security from "./pages/Security"
 import Actions from "./pages/Actions"
+import { QueryClientProvider, QueryClient } from "react-query"
 
 /**
  * ContextAPI - 전역적인 정보를 prop drilling 없이 사용할 때
@@ -18,9 +19,11 @@ import Actions from "./pages/Actions"
  * -> hooks로 선언한 부분이 반복적으로 네트워크 콜을 유발한다면, cache를 통해서 개선헤볼 수 있을 것.
  */
 
+const queryClient = new QueryClient()
+
 function App() {
   return (
-    <>
+    <QueryClientProvider client={queryClient}>
       <Nav />
       <Header />
       <Routes>
@@ -33,7 +36,7 @@ function App() {
         <Route path="/security" element={<Security />} />
         <Route path="/actions" element={<Actions />} />
       </Routes>
-    </>
+    </QueryClientProvider>
   )
 }
 
